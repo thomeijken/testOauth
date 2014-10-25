@@ -22,9 +22,9 @@ and open the template in the editor.
             $('#buttonTest', this.el).on('click', function(){
 				alert('Opened inAppBrowser!');
 				var ref = window.open('https://sandbox.kenniscafe.net/', '_blank', 'location=yes');
-				ref.addEventListener('loadstart', function(event) { alert('Started loading. URL='+event.url); });
-				ref.addEventListener('loadstop', function(event) { alert('Done loading. URL='+event.url); });
-				ref.addEventListener('exit', function(event) { alert('Closed'); });
+				ref.addEventListener('loadstart', function() { alert('Started loading. URL='+event.url); });
+				ref.addEventListener('loadstop', function() { alert('Done loading. URL='+event.url); });
+				ref.addEventListener('exit', function() { alert('Closed'); });
 			});
         </script>
     </body>
