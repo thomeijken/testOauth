@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="./css/jquery.mobile-1.4.3.min.css" />
+		<script src="phonegap.js"></script>
+        <script src="js/lib/jquery/jquery-2.1.1.min.js"></script>
+        <script src="js/lib/jquery/jquery.mobile-1.4.3.min.js"></script>
+    </head>
+    <body>
+        <a id="buttonTest" data-role="button">Start OAuth!</a>
+        
+        <script>
+            $('#buttonTest', this.el).on('click', function(){
+				alert('Opened inAppBrowser!');
+				var ref = window.open('https://sandbox.kenniscafe.net/', '_blank', 'location=yes');
+				ref.addEventListener('loadstart', function(event) { alert('Started loading. URL='+event.url); });
+				ref.addEventListener('loadstop', function(event) { alert('Done loading. URL='+event.url); });
+				ref.addEventListener('exit', function(event) { alert('Closed'); });
+			});
+        </script>
+    </body>
+</html>
