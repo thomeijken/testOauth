@@ -16,16 +16,18 @@ and open the template in the editor.
         <script src="js/lib/jquery/jquery.mobile-1.4.3.min.js"></script>
     </head>
     <body>
-        <a id="buttonTest" data-role="button">Start OAuth!</a>
+        <div data-role="page" id="accounts">
+            <a id="buttonTest" data-role="button">Start OAuth!</a>
         
-        <script>
-            $('#buttonTest', this.el).on('click', function(){
+            <script>
+                $('#buttonTest', this.el).on('click', function(){
 				alert('Opened inAppBrowser!');
 				var ref = window.open('https://sandbox.kenniscafe.net/', '_blank', 'location=yes');
-				ref.addEventListener('loadstart', function() { alert('Started loading. URL='+event.url); });
-				ref.addEventListener('loadstop', function() { alert('Done loading. URL='+event.url); });
-				ref.addEventListener('exit', function() { alert('Closed'); });
-			});
-        </script>
+                                ref.addEventListener('loadstart', function(event) { alert(event.type + ' - ' + event.url); } );
+                                ref.addEventListener('loadstop', function(event) { alert(event.type + ' - ' + event.url); } );
+                                ref.addEventListener('exit', function(event) { alert(event.type); } );
+                    	});
+            </script>
+        </div>
     </body>
 </html>
