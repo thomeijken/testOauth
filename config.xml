@@ -16,7 +16,9 @@
     <author href="http://www.guidopater.nl" email="info@guidopater.nl">
         Thom Eijken
     </author>
-
+    
+    <preference name="phonegap-version"           value="3.5.0" />
+    
     <gap:plugin name="org.apache.cordova.inappbrowser" />
 
     <!-- Define app icon for each platform. -->
