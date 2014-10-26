@@ -20,25 +20,24 @@ and open the template in the editor.
             // Wait for device API libraries to load
             //
             function onLoad() {
-                alert('onLoad');
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
             
 
             function iabLoadStart(event) {
-                alert(event.type + ' - ' + event.url);
+                console.log(event.type + ' - ' + event.url);
             }
 
             function iabLoadStop(event) {
-                alert(event.type + ' - ' + event.url);
+                console.log(event.type + ' - ' + event.url);
             }
 
             function iabLoadError(event) {
-                alert(event.type + ' - ' + event.message);
+                console.log(event.type + ' - ' + event.message);
             }
 
             function iabClose(event) {
-                 alert(event.type);
+                 console.log(event.type);
                  ref.removeEventListener('loadstart', iabLoadStart);
                  ref.removeEventListener('loadstop', iabLoadStop);
                  ref.removeEventListener('loaderror', iabLoadError);
@@ -48,7 +47,6 @@ and open the template in the editor.
             // device APIs are available
             //
             function onDeviceReady() {
-              alert('ready!');
               $('#btn').click(function(){
                  ref= window.open('http://apache.org', '_blank', 'location=yes');
                  ref.addEventListener('loadstart', iabLoadStart);
