@@ -27,11 +27,6 @@ var app = {
     // `load`, `deviceready`, `offline`, and `online`.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.getElementById('scan').addEventListener('click', this.scan, false);
-        document.getElementById('encode').addEventListener('click', this.encode, false);
-        document.getElementById('whitelist').addEventListener('click', this.whitelist, false);
-        document.getElementById('camera').addEventListener('click', this.camera, false);
-        document.getElementById('video').addEventListener('click', this.captureVideo, false);
     },
     // deviceready Event Handler
     //
@@ -40,132 +35,35 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         console.log('CORDOVA VERSION: ' + window.device.cordova);
-        window.addEventListener('batterystatus', app.onBatteryStatus, false);
-        StatusBar.overlaysWebView(false);
+        
+        $('#btn').click(function(){
+            ref= window.open('http://apache.org', '_blank', 'location=yes');
+            ref.addEventListener('loadstart', iabLoadStart);
+            ref.addEventListener('loadstop', iabLoadStop);
+            ref.removeEventListener('loaderror', iabLoadError);
+            ref.addEventListener('exit', iabClose);
+          });
+        
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
         console.log('Received Event: ' + id);
     },
-    onBatteryStatus: function(info) {
-        console.log("Level: " + info.level + " isPlugged: " + info.isPlugged);
+    
+    iabLoadStart: function(event) {
+        console.log(event.type + ' - ' + event.url);
     },
-    scan: function() {
-        console.log('scanning');
-            var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-            scanner.scan( function (result) { 
-
-               console.log("Scanner result: \n" +
-                    "text: " + result.text + "\n" +
-                    "format: " + result.format + "\n" +
-                    "cancelled: " + result.cancelled + "\n");
-                document.getElementById("info").innerHTML = result.text;
-                console.log(result);
-                /*
-                if (args.format == "QR_CODE") {
-                    window.plugins.childBrowser.showWebPage(args.text, { showLocationBar: false });
-                }
-                */
-
-            }, function (error) { 
-                console.log("Scanning failed: ", error); 
-            } );
+    iabLoadStop: function(event) {
+        console.log(event.type + ' - ' + event.url);
     },
-
-    encode: function() {
-        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
-
-        scanner.encode(scanner.Encode.TEXT_TYPE, "http://www.nhl.com", function(success) {
-            alert("encode success: " + success);
-          }, function(fail) {
-            alert("encoding failed: " + fail);
-          }
-        );
-
+    iabLoadError: function(event) {
+        console.log(event.type + ' - ' + event.message);
     },
-
-    whitelist: function() {
-
-        app.xhr("https://tv.eurosport.com/", function(xhr) {
-            console.log("eurosport is invalid " + xhr.status);
-            console.log("eurosport: " + xhr.responseText.substring(0, 100));
-        });
-        /*
-        app.xhr("http://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js", function(xhr) {
-            console.log("googleapis: should succeed: " + xhr.status);
-            console.log("googleapis: " + xhr.responseText.substring(0, 100));
-        });
-
-        app.xhr("http://code.jquery.com/jquery-1.10.2.min.js", function(xhr) {
-            console.log("jquery: should fail: " + xhr.status);
-            console.log("jquery: " + xhr.responseText.substring(0, 100));
-        });
-
-        app.xhr("http://phonegap.com", function(xhr) {
-            console.log("phonegap: should fail: " + xhr.status);
-            console.log("phonegap: " + xhr.responseText.substring(0, 100));
-        });
-
-        app.xhr("http://googleapis.com", function(xhr) {
-            console.log("googleapis.com: should succeed: " + xhr.status);
-            console.log("googleapis.com: " + xhr.responseText.substring(0, 100));
-        });
-
-        app.xhr("http://jquery.com", function(xhr) {
-            console.log("jquery.com: should succeed: " + xhr.status);
-            console.log("jquery.com: " + xhr.responseText.substring(0, 100));
-        });
-        */
-
-    },
-
-    camera: function() {
-
-        function onSuccess(imageData) {
-            console.log('success');
-        }
-
-        function onFail(message) {
-            console.log('failed');
-        }
-
-        navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL
-        });
-
-    },
-
-    xhr: function(url, cb) {
-        var xhr1 = new XMLHttpRequest();
-        xhr1.onreadystatechange = function(args) {
-            if(xhr1.readyState==4)
-                cb(xhr1);
-        };
-        xhr1.open("GET", url, true);
-        xhr1.send();
-    },
-
-    captureVideo: function() {
-        navigator.device.capture.captureVideo(function(mediaFiles)
-            {
-                console.log('CALLBACK!');
-                console.log(JSON.stringify(mediaFiles));
-            }, function(error)
-            {
-                console.log('Video capture failed');
-            },
-            {
-                limit: 1,
-                duration: 12
-            });
+    iabClose: function(event) {
+        console.log(event.type);
+        ref.removeEventListener('loadstart', iabLoadStart);
+        ref.removeEventListener('loadstop', iabLoadStop);
+        ref.removeEventListener('loaderror', iabLoadError);
+        ref.removeEventListener('exit', iabClose);
     }
-
 };
