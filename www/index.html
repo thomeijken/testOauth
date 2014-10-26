@@ -11,22 +11,19 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="stylesheet" href="./css/jquery.mobile-1.4.3.min.css" />
-	<!--	<script src="phonegap.js"></script>-->
+	<script src="phonegap.js"></script>
         <script src="js/lib/jquery/jquery-2.1.1.min.js"></script>
         <script src="js/lib/jquery/jquery.mobile-1.4.3.min.js"></script>
-    </head>
-    <body>
-        <div data-role="page" id="accounts">
-            <a id="btn" data-role="button">Start OAuth!</a>
-        
-            <script type="text/javascript" charset="utf-8">
-
-            // Wait for device API libraries to load
-            //
-            document.addEventListener("deviceready", onDeviceReady, false);
-
+        <script type="text/javascript" charset="utf-8">
             // Global InAppBrowser reference
             var ref= null;
+            // Wait for device API libraries to load
+            //
+            function onLoad() {
+                alert('onLoad');
+                document.addEventListener("deviceready", onDeviceReady, false);
+            }
+            
 
             function iabLoadStart(event) {
                 alert(event.type + ' - ' + event.url);
@@ -51,6 +48,7 @@ and open the template in the editor.
             // device APIs are available
             //
             function onDeviceReady() {
+              alert('ready!');
               $('#btn').click(function(){
                  ref= window.open('http://apache.org', '_blank', 'location=yes');
                  ref.addEventListener('loadstart', iabLoadStart);
@@ -60,6 +58,12 @@ and open the template in the editor.
                });
             }
             </script>
+    </head>
+    <body onload="onLoad()">
+        <div data-role="page" id="accounts">
+            <a id="btn" data-role="button">Start OAuth!</a>
+        
+            
         </div>
     </body>
 </html>
