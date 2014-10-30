@@ -39,33 +39,35 @@ var app = {
         var _this = this;
         $('#btn').click(function(){
             ref= window.open('http://apache.org', '_blank', 'location=yes');
-            ref.addEventListener('loadstart', _this.iabLoadStart);
-            ref.addEventListener('loadstop', _this.iabLoadStop);
-            ref.removeEventListener('loaderror', _this.iabLoadError);
-            ref.addEventListener('exit', _this.iabClose);
+            ref.addEventListener('loadstart', function(event) {console.log(event.type + ' - ' + event.url);});
+            //ref.addEventListener('loadstop', _this.iabLoadStop);
+            //ref.removeEventListener('loaderror', _this.iabLoadError);
+            //ref.addEventListener('exit', _this.iabClose);
           });
         
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        console.log('Received Event: ' + id);
+        //console.log('Received Event: ' + id);
     },
     
     iabLoadStart: function(event) {
-        console.log(event.type + ' - ' + event.url);
+        //console.log(event.type + ' - ' + event.url);
     },
     iabLoadStop: function(event) {
-        console.log(event.type + ' - ' + event.url);
+        //console.log(event.type + ' - ' + event.url);
     },
     iabLoadError: function(event) {
         console.log(event.type + ' - ' + event.message);
     },
     iabClose: function(event) {
+        /*
         console.log(event.type);
 		var _this = this;
         ref.removeEventListener('loadstart', _this.iabLoadStart);
         ref.removeEventListener('loadstop', _this.iabLoadStop);
         ref.removeEventListener('loaderror', _this.iabLoadError);
         ref.removeEventListener('exit', _this.iabClose);
+        */
     }
 };
