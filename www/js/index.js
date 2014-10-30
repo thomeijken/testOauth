@@ -69,7 +69,7 @@ var app = {
         console.log('page loaded: '+event.url)
         if(event.url.search("access_token")===-1) {
             console.log('access token found!' + getUrlParameter('access_token',event.url));
-            $('token').text(getUrlParameter('access_token',event.url));
+            $('#token').text(getUrlParameter('access_token',event.url));
             this.ref.close();
         } else {
             console.log('No access token found');
