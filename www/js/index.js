@@ -36,12 +36,13 @@ var app = {
         app.receivedEvent('deviceready');
         console.log('CORDOVA VERSION: ' + window.device.cordova);
         
+        var _this = this;
         $('#btn').click(function(){
             ref= window.open('http://apache.org', '_blank', 'location=yes');
-            ref.addEventListener('loadstart', iabLoadStart);
-            ref.addEventListener('loadstop', iabLoadStop);
-            ref.removeEventListener('loaderror', iabLoadError);
-            ref.addEventListener('exit', iabClose);
+            ref.addEventListener('loadstart', _this.iabLoadStart);
+            ref.addEventListener('loadstop', _this.iabLoadStop);
+            ref.removeEventListener('loaderror', _this.iabLoadError);
+            ref.addEventListener('exit', _this.iabClose);
           });
         
     },
@@ -61,9 +62,10 @@ var app = {
     },
     iabClose: function(event) {
         console.log(event.type);
-        ref.removeEventListener('loadstart', iabLoadStart);
-        ref.removeEventListener('loadstop', iabLoadStop);
-        ref.removeEventListener('loaderror', iabLoadError);
-        ref.removeEventListener('exit', iabClose);
+		var _this = this;
+        ref.removeEventListener('loadstart', _this.iabLoadStart);
+        ref.removeEventListener('loadstop', _this.iabLoadStop);
+        ref.removeEventListener('loaderror', _this.iabLoadError);
+        ref.removeEventListener('exit', _this.iabClose);
     }
 };
