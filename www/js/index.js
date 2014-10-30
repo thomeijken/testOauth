@@ -37,8 +37,8 @@ var app = {
     
     onButtonClick: function () {
         console.log('button clicked');
-        app.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
-        app.ref.addEventListener('loadstart', app.iabLoadStart);
+        this.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
+        this.ref.addEventListener('loadstart', app.iabLoadStart);
         
     },
     iabLoadStart: function(event) {
