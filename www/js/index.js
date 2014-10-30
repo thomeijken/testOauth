@@ -39,16 +39,10 @@ function onButtonClick() {
             console.log('no token found');
         } else {
             console.log('access token found!');
+            var url = event.url;
             ref.close();
-            //$('#token').text(getUrlParameter('access_token',event.url));
+            $('#token').text(getUrlParameter('access_token',url));
         }
-        /*if(event.url.search("access_token")===-1) {
-            console.log('access token found!' + getUrlParameter('access_token',event.url));
-            
-            
-        } else {
-            console.log('No access token found');
-        }*/
 
     });
 }
