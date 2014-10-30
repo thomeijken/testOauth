@@ -39,7 +39,7 @@ var app = {
         console.log('CORDOVA VERSION: ' + window.device.cordova);
         
         var _this = this;
-        $('#btn').click(_this.onButtonClick());
+        $('#btn').click(_this.onButtonClick);
         
     },
     onButtonClick: function () {
