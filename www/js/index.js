@@ -37,8 +37,8 @@ function OAuthHelper() {
     this.onDeviceReady = function() {
         console.log('DEVICE READY!');
         console.log('CORDOVA VERSION: ' + window.device.cordova);
-        
-        $('#btn').click(this.onButtonClick);
+        this.onButtonClick();
+        //$('#btn').click(this.onButtonClick);
         
     };
     
