@@ -35,21 +35,16 @@ var app = {
     // The scope of `this` is the event. In order to call the `receivedEvent`
     // function, we must explicity call `app.receivedEvent(...);`
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        console.log('DEVICE READY!');
         console.log('CORDOVA VERSION: ' + window.device.cordova);
         
-        var _this = this;
-        $('#btn').click(_this.onButtonClick);
+        $('#btn').click(this.onButtonClick);
         
     },
     onButtonClick: function () {
-        var _this = this;
         this.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
-        this.ref.addEventListener('loadstart', _this.iabLoadStart);
+        this.ref.addEventListener('loadstart', this.iabLoadStart);
         
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
     },
     
     iabLoadStart: function(event) {
