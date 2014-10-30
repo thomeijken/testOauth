@@ -37,18 +37,21 @@ var app = {
     
     onButtonClick: function () {
         console.log('button clicked');
-        this.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
-        this.ref.addEventListener('loadstart', app.iabLoadStart);
+        var ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
+        ref.addEventListener('loadstart', function(event) {
+            console.log('page loaded: '+event.url);
+            if(event.url.search("access_token")===-1) {
+                console.log('access token found!' + getUrlParameter('access_token',event.url));
+                $('#token').text(getUrlParameter('access_token',event.url));
+                //this.close();
+            } else {
+                console.log('No access token found');
+            }
+            
+        });
         
     },
     iabLoadStart: function(event) {
-        console.log('page loaded: '+event.url);
-        if(event.url.search("access_token")===-1) {
-            console.log('access token found!' + getUrlParameter('access_token',event.url));
-            $('#token').text(getUrlParameter('access_token',event.url));
-            app.ref.close();
-        } else {
-            console.log('No access token found');
-        }
+        
     }
 };
