@@ -17,37 +17,38 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    ref:null,
+function OAuthHelper() {
+    var ref = null;
     // Application Constructor
-    initialize: function() {
+    this.initialize = function() {
         this.bindEvents();
-    },
+    };
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // `load`, `deviceready`, `offline`, and `online`.
-    bindEvents: function() {
+    this.bindEvents = function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
+    };
     // deviceready Event Handler
     //
     // The scope of `this` is the event. In order to call the `receivedEvent`
     // function, we must explicity call `app.receivedEvent(...);`
-    onDeviceReady: function() {
+    this.onDeviceReady = function() {
         console.log('DEVICE READY!');
         console.log('CORDOVA VERSION: ' + window.device.cordova);
         
         $('#btn').click(this.onButtonClick);
         
-    },
-    onButtonClick: function () {
+    };
+    
+    this.onButtonClick = function () {
         this.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
         this.ref.addEventListener('loadstart', this.iabLoadStart);
         
-    },
+    };
     
-    iabLoadStart: function(event) {
+    this.iabLoadStart = function(event) {
         console.log('page loaded: '+event.url);
         if(event.url.search("access_token")===-1) {
             console.log('access token found!' + getUrlParameter('access_token',event.url));
@@ -56,5 +57,5 @@ var app = {
         } else {
             console.log('No access token found');
         }
-    }
+    };
 };
