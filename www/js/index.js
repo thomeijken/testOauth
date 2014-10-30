@@ -17,41 +17,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    ref: null,
     // Application Constructor
-    initialize:function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
+var ref;
+function initialize() {
+        document.addEventListener('deviceready', onDeviceReady, false);
+}
    
-    // deviceready Event Handler
-    //
-    // The scope of `this` is the event. In order to call the `receivedEvent`
-    // function, we must explicity call `app.receivedEvent(...);`
-    onDeviceReady: function() {
-        console.log('DEVICE READY!');
-        //console.log('CORDOVA VERSION: ' + window.device.cordova);
-        $('#btn').click(app.onButtonClick);
-        
-    },
+function onDeviceReady() {
+    console.log('DEVICE READY!');
+    console.log('CORDOVA VERSION: ' + window.device.cordova);
+    $('#btn').click(onButtonClick);
+
+}
     
-    onButtonClick: function () {
-        console.log('button clicked');
-        var ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
-        ref.addEventListener('loadstart', function(event) {
-            console.log('page loaded: '+event.url);
-            if(event.url.search("access_token")===-1) {
-                console.log('access token found!' + getUrlParameter('access_token',event.url));
-                $('#token').text(getUrlParameter('access_token',event.url));
-                this.close();
-            } else {
-                console.log('No access token found');
-            }
-            
-        });
-        
-    },
-    iabLoadStart: function(event) {
-        
-    }
-};
+function onButtonClick() {
+    console.log('button clicked');
+    ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
+    ref.addEventListener('loadstart', function(event) {
+        console.log('page loaded: '+event.url);
+        if(event.url.search("access_token")===-1) {
+            console.log('access token found!' + getUrlParameter('access_token',event.url));
+            $('#token').text(getUrlParameter('access_token',event.url));
+            ref.close();
+        } else {
+            console.log('No access token found');
+        }
+
+    });
+}
