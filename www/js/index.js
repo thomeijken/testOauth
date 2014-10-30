@@ -1,18 +1,3 @@
-function getUrlParameter(sParam, url)
-{ 
-    var sPageURLParts = url.split('#');
-	sPageURL = sPageURLParts[1];
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) 
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
-        {
-            return sParameterName[1];
-        }
-    }
-}    
-
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -66,7 +51,7 @@ var app = {
     },
     
     iabLoadStart: function(event) {
-        console.log('page loaded: '+event.url)
+        console.log('page loaded: '+event.url);
         if(event.url.search("access_token")===-1) {
             console.log('access token found!' + getUrlParameter('access_token',event.url));
             $('#token').text(getUrlParameter('access_token',event.url));

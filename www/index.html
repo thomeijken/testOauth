@@ -25,6 +25,23 @@
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.3.min.css" />
         <script src="js/lib/jquery/jquery-2.1.1.min.js"></script>
         <script src="js/lib/jquery/jquery.mobile-1.4.3.min.js"></script>
+        <script>
+            function getUrlParameter(sParam, url)
+            { 
+                var sPageURLParts = url.split('#');
+                    sPageURL = sPageURLParts[1];
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) 
+                {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] === sParam);
+                    {
+                        return sParameterName[1];
+                    }
+                }
+            }    
+
+        </script>
         <title>PhoneGap OAuth Tester</title>
     </head>
     <body>
