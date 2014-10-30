@@ -39,11 +39,13 @@ var app = {
         console.log('CORDOVA VERSION: ' + window.device.cordova);
         
         var _this = this;
-        var callBack = _this.iabLoadStart;
-        $('#btn').click(function(){
-            _this.ref= window.open('sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
-            _this.ref.addEventListener('loadstart', callBack);
-          });
+        $('#btn').click(_this.onButtonClick());
+        
+    },
+    onButtonClick: function () {
+        var _this = this;
+        this.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
+        this.ref.addEventListener('loadstart', _this.iabLoadStart);
         
     },
     // Update DOM on a Received Event
