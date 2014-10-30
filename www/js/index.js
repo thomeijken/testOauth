@@ -1,3 +1,19 @@
+function getUrlParameter(sParam, url)
+{ 
+    var sPageURLParts = url.split('#');
+	sPageURL = sPageURLParts[1];
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}    
+
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -17,6 +33,7 @@
  * under the License.
  */
 var app = {
+    ref:null,
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -37,37 +54,25 @@ var app = {
         console.log('CORDOVA VERSION: ' + window.device.cordova);
         
         var _this = this;
+        var callBack = _this.iabLoadStart;
         $('#btn').click(function(){
-            ref= window.open('http://apache.org', '_blank', 'location=yes');
-            ref.addEventListener('loadstart', function(event) {console.log(event.type + ' - ' + event.url);});
-            //ref.addEventListener('loadstop', _this.iabLoadStop);
-            //ref.removeEventListener('loaderror', _this.iabLoadError);
-            //ref.addEventListener('exit', _this.iabClose);
+            _this.ref= window.open('sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
+            _this.ref.addEventListener('loadstart', callBack);
           });
         
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        //console.log('Received Event: ' + id);
     },
     
     iabLoadStart: function(event) {
-        //console.log(event.type + ' - ' + event.url);
-    },
-    iabLoadStop: function(event) {
-        //console.log(event.type + ' - ' + event.url);
-    },
-    iabLoadError: function(event) {
-        console.log(event.type + ' - ' + event.message);
-    },
-    iabClose: function(event) {
-        /*
-        console.log(event.type);
-		var _this = this;
-        ref.removeEventListener('loadstart', _this.iabLoadStart);
-        ref.removeEventListener('loadstop', _this.iabLoadStop);
-        ref.removeEventListener('loaderror', _this.iabLoadError);
-        ref.removeEventListener('exit', _this.iabClose);
-        */
+        console.log('page loaded: '+event.url)
+        if(event.url.search("access_token")===-1) {
+            console.log('access token found!' + getUrlParameter('access_token',event.url));
+            $('token').text(getUrlParameter('access_token',event.url));
+            this.ref.close();
+        } else {
+            console.log('No access token found');
+        }
     }
 };
