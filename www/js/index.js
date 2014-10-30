@@ -21,15 +21,15 @@ function OAuthHelper() {
     var ref = null;
     // Application Constructor
     this.initialize = function() {
-        this.bindEvents();
+        this.onDeviceReady();
     };
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // `load`, `deviceready`, `offline`, and `online`.
-    this.bindEvents = function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    };
+    //this.bindEvents = function() {
+        //document.addEventListener('deviceready', this.onDeviceReady, false);
+    //};
     // deviceready Event Handler
     //
     // The scope of `this` is the event. In order to call the `receivedEvent`
@@ -37,14 +37,16 @@ function OAuthHelper() {
     this.onDeviceReady = function() {
         console.log('DEVICE READY!');
         console.log('CORDOVA VERSION: ' + window.device.cordova);
-        this.onButtonClick();
-        //$('#btn').click(this.onButtonClick);
+        var _this = this;
+        $('#btn').click(_this.onButtonClick);
         
     };
     
     this.onButtonClick = function () {
+        console.log('button clicked');
         this.ref= window.open('https://sandbox.kenniscafe.net/oauth/authorize?response_type=token&client_id=dSHjy1vvmcBnPuUU93Sqj3Qe5ujazflk27vBudeN', '_blank', 'location=yes');
-        this.ref.addEventListener('loadstart', this.iabLoadStart);
+        var _this = this;
+        this.ref.addEventListener('loadstart', _this.iabLoadStart);
         
     };
     
