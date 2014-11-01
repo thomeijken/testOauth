@@ -24,7 +24,6 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     console.log('DEVICE READY!');
     $('#btn').click(function() {
-        var helper = new OAuthHelper();
-        helper.startOAuth();
+        OAuthHelper.startOAuth();
     });
 }
