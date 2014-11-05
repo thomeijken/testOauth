@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.3.min.css" />
+        <script src="js/lib/jquery/jquery-2.1.1.min.js"></script>
+        <script src="js/lib/jquery/jquery.mobile-1.4.3.min.js"></script>
+        
+        <title>PhoneGap OAuth Tester</title>
+    </head>
+    <body>
+        <div data-role="page" id="accounts">
+            <a id="btn" data-role="button">Start AJAX!</a><br><br>
+            <div id="content">No content yet...</div>
+        </div>
+		<script>
+		//$('btn').on('click',function () {
+			console.log('starting ajax..');
+			$.ajax({
+				type: "GET",
+				url: "http://localhost/proxy/ba-simple-proxy.php",
+				//data: { url: "https://sandbox.kenniscafe.net/api/users?token=3CsHnLhqPSdgL7CSmuVBDV424WvjMzUzIeOahE9F&search[keyword]=g"},
+                                beforeSend: function(xhr) { 
+                                   xhr.setRequestHeader("Version","1");
+                                   xhr.setRequestHeader("Accept","application/vnd.winkwaves+json");
+                               }
+			})
+			.done(function( html ) {
+				console.log(html);
+				$('#content').html(html);
+			});
+		//});
+        </script>
+    </body>
+</html>
