@@ -11,7 +11,9 @@ function onDeviceReady() {
                xhr.setRequestHeader("Accept","application/vnd.winkwaves+json");
            }
     })
-    .done(function( html ) {
-            console.log(html);
+    .done(function( data) {
+            $.each( data, function( key, val ) {
+                console.log( "key ->" + key + " , value -> " + val );
+            });
     });
 }

@@ -37,7 +37,8 @@
 		//$('btn').on('click',function () {
 			console.log('starting ajax..');
 			$.ajax({
-				type: "GET",
+				dataType: "json",
+                                type: "GET",
 				url: "http://localhost/proxy/ba-simple-proxy.php",
 				//data: { url: "https://sandbox.kenniscafe.net/api/users?token=3CsHnLhqPSdgL7CSmuVBDV424WvjMzUzIeOahE9F&search[keyword]=g"},
                                 beforeSend: function(xhr) { 
